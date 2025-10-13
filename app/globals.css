@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --accent: #00ff9f;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-jetbrains-mono), 'Courier New', monospace;
+}
+
+@keyframes rotateDash {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotating-border {
+  animation: rotateDash 15s linear infinite;
+}
+
+@keyframes glowMove {
+  0% {
+    background-position: -100% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.experience-card {
+  position: relative;
+  border-radius: 24px;
+  padding: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 40%,
+    #00ff9f 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 300% 100%;
+  overflow: visible;
+}
+
+.experience-card:nth-child(1) {
+  animation: glowMove 6s linear infinite;
+}
+
+.experience-card:nth-child(2) {
+  animation: glowMove 8s linear infinite;
+}
+
+.experience-card:nth-child(3) {
+  animation: glowMove 10s linear infinite;
+}
+
+.experience-card:nth-child(4) {
+  animation: glowMove 7s linear infinite;
+}
+
+.experience-card::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 24px;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 255, 159, 0.4) 0%,
+    rgba(0, 255, 159, 0.2) 30%,
+    transparent 60%
+  );
+  background-size: 20% 100%;
+  background-position: inherit;
+  background-repeat: no-repeat;
+  filter: blur(20px);
+  animation: inherit;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.experience-card:nth-child(1)::before {
+  animation: glowMove 6s linear infinite, glowPulse 6s linear infinite;
+}
+
+.experience-card:nth-child(2)::before {
+  animation: glowMove 8s linear infinite, glowPulse 8s linear infinite;
+}
+
+.experience-card:nth-child(3)::before {
+  animation: glowMove 10s linear infinite, glowPulse 10s linear infinite;
+}
+
+.experience-card:nth-child(4)::before {
+  animation: glowMove 7s linear infinite, glowPulse 7s linear infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0;
+  }
+  40%, 60% {
+    opacity: 1;
+  }
+}
+
+.experience-card-inner {
+  background: #1a1a1a;
+  border-radius: 22px;
+  padding: 2rem;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.experience-card-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle 150px at var(--glow-x, 50%) var(--glow-y, 50%),
+    rgba(0, 255, 159, 0.15) 0%,
+    transparent 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.experience-card:hover .experience-card-inner::before {
+  opacity: 1;
+}

@@ -1,0 +1,10 @@
+<svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="250" cy="250" r="250" fill="#1a1a1a"/>
+
+  <!-- Inner decorative circle -->
+  <circle cx="250" cy="250" r="200" fill="none" stroke="#00ff9f" stroke-width="2" opacity="0.3"/>
+
+  <!-- Text -->
+  <text x="250" y="280" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#00ff9f" text-anchor="middle">RK</text>
+</svg>
