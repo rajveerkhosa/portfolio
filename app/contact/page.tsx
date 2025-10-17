@@ -12,7 +12,7 @@ export default function ContactPage() {
       <div className="flex items-center justify-center px-8 min-h-[calc(100vh-88px)]">
       <div className="max-w-4xl w-full">
         <h1 className="text-5xl md:text-6xl font-bold text-center mb-8">
-          Let's <span className="text-[#00ff9f]">Connect</span>
+          Let&apos;s <span className="text-[#00ff9f]">Connect</span>
         </h1>
         <p className="text-gray-400 text-lg text-center mb-12 max-w-2xl mx-auto">
           What led you here? What are you looking for? I would love to hear from you over a virtual coffee chat!

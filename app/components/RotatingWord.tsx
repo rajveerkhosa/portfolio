@@ -83,10 +83,10 @@ export default function RotatingWord() {
               }`}
               style={{
                 animationDelay: isAnimating ? `${index * 30}ms` : `${index * 50}ms`,
-                // @ts-ignore - CSS custom properties
-                "--scatter-x": `${scatterX}px`,
-                "--scatter-y": `${scatterY}px`,
-                "--scatter-rotate": `${scatterRotate}deg`,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                ["--scatter-x" as any]: `${scatterX}px`,
+                ["--scatter-y" as any]: `${scatterY}px`,
+                ["--scatter-rotate" as any]: `${scatterRotate}deg`,
               }}
             >
               {letter === " " ? "\u00A0" : letter}

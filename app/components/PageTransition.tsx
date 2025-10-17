@@ -53,7 +53,7 @@ export default function PageTransition({ isTransitioning, onTransitionComplete, 
       // If isTransitioning becomes false but we're still showing, hide it
       setShowTransition(false);
     }
-  }, [isTransitioning]);
+  }, [isTransitioning, showTransition]);
 
   if (!showTransition) return null;
 
