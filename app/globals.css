@@ -28,7 +28,7 @@ body {
 }
 
 .rotating-border {
-  animation: rotateDash 15s linear infinite;
+  animation: rotateDash 30s linear infinite;
 }
 
 @keyframes glowMove {
@@ -143,4 +143,96 @@ body {
 
 .experience-card:hover .experience-card-inner::before {
   opacity: 1;
+}
+
+/* Page Transition Animations - Using clip-path */
+
+/* Fill from bottom to top */
+@keyframes fillUp {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Clear from top to bottom */
+@keyframes clearDown {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+/* Jitter animation for text hover */
+@keyframes jitter {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  10% {
+    transform: translate(-2px, 1px) rotate(-0.5deg);
+  }
+  20% {
+    transform: translate(2px, -1px) rotate(0.5deg);
+  }
+  30% {
+    transform: translate(-1px, 2px) rotate(-0.3deg);
+  }
+  40% {
+    transform: translate(1px, -2px) rotate(0.3deg);
+  }
+  50% {
+    transform: translate(-2px, -1px) rotate(-0.4deg);
+  }
+  60% {
+    transform: translate(2px, 1px) rotate(0.4deg);
+  }
+  70% {
+    transform: translate(-1px, -2px) rotate(-0.2deg);
+  }
+  80% {
+    transform: translate(1px, 2px) rotate(0.2deg);
+  }
+  90% {
+    transform: translate(-2px, -1px) rotate(-0.3deg);
+  }
+}
+
+.animate-jitter {
+  animation: jitter 0.3s ease-in-out infinite;
+}
+
+/* Letter drop-in animation */
+@keyframes letterDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-letter-drop {
+  animation: letterDrop 0.3s ease-out forwards;
+}
+
+/* Letter scatter out animation */
+@keyframes letterScatter {
+  0% {
+    opacity: 1;
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(var(--scatter-y, -20px)) translateX(var(--scatter-x, 0px)) rotate(var(--scatter-rotate, 0deg)) scale(0.3);
+  }
+}
+
+.animate-letter-scatter {
+  animation: letterScatter 0.5s ease-in forwards;
 }
