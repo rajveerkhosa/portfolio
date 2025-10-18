@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, CSSProperties, useMemo } from "react";
 
 const adjectives = [
   "Clever",
@@ -22,78 +22,53 @@ const adjectives = [
 ];
 
 export default function RotatingWord() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [visibleLetters, setVisibleLetters] = useState(0);
+  const [wordKey, setWordKey] = useState(0);
+  const [isScattering, setIsScattering] = useState(false);
+
+  const currentWord = useMemo(() => adjectives[wordKey % adjectives.length], [wordKey]);
+
+  // Generate random scatter values once per word
+  const scatterValues = useMemo(() => {
+    return currentWord.split("").map(() => ({
+      x: (Math.random() - 0.5) * 40,
+      y: -20 - Math.random() * 20,
+      rotate: (Math.random() - 0.5) * 30,
+    }));
+  }, [currentWord]);
 
   useEffect(() => {
-    // Start with all letters visible for the first word
-    setVisibleLetters(adjectives[0].length);
+    const timer1 = setTimeout(() => {
+      setIsScattering(true);
 
-    const interval = setInterval(() => {
-      // Start scatter out animation
-      setIsAnimating(true);
-      setVisibleLetters(0);
+      const timer2 = setTimeout(() => {
+        setIsScattering(false);
+        setWordKey(prev => prev + 1);
+      }, 800);
 
-      // After scatter completes, wait a bit, then switch to next word
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % adjectives.length);
+      return () => clearTimeout(timer2);
+    }, 3500);
 
-        // Wait before starting to show new word
-        setTimeout(() => {
-          setIsAnimating(false);
-        }, 300); // Pause after word disappears before new one appears
-      }, 500); // Scatter out duration
-    }, 3500); // Display each word for 3.5 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    // Animate letters in one by one when new word appears
-    if (!isAnimating && visibleLetters < adjectives[currentIndex].length) {
-      const timeout = setTimeout(() => {
-        setVisibleLetters((prev) => prev + 1);
-      }, 50); // 50ms delay between each letter
-
-      return () => clearTimeout(timeout);
-    }
-  }, [currentIndex, visibleLetters, isAnimating]);
-
-  const currentWord = adjectives[currentIndex];
+    return () => clearTimeout(timer1);
+  }, [wordKey]);
 
   return (
-    <span className="inline-block relative">
-      <span className="inline-block">
-        {currentWord.split("").map((letter, index) => {
-          // Random scatter directions for each letter
-          const scatterX = (Math.random() - 0.5) * 40; // -20 to 20
-          const scatterY = -20 - Math.random() * 20; // -20 to -40
-          const scatterRotate = (Math.random() - 0.5) * 30; // -15 to 15 degrees
-
-          return (
-            <span
-              key={`${currentIndex}-${index}`}
-              className={`inline-block ${
-                isAnimating
-                  ? "animate-letter-scatter"
-                  : index < visibleLetters
-                  ? "animate-letter-drop"
-                  : "opacity-0"
-              }`}
-              style={{
-                animationDelay: isAnimating ? `${index * 30}ms` : `${index * 50}ms`,
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                ["--scatter-x" as any]: `${scatterX}px`,
-                ["--scatter-y" as any]: `${scatterY}px`,
-                ["--scatter-rotate" as any]: `${scatterRotate}deg`,
-              }}
-            >
-              {letter === " " ? "\u00A0" : letter}
-            </span>
-          );
-        })}
-      </span>
+    <span className="inline-block relative" style={{ minWidth: "14ch" }}>
+      {currentWord.split("").map((letter, index) => (
+        <span
+          key={`${wordKey}-${index}`}
+          className={`inline-block ${isScattering ? "animate-letter-scatter" : "animate-letter-drop"}`}
+          style={
+            {
+              animationDelay: isScattering ? `${index * 30}ms` : `${index * 50}ms`,
+              "--scatter-x": `${scatterValues[index].x}px`,
+              "--scatter-y": `${scatterValues[index].y}px`,
+              "--scatter-rotate": `${scatterValues[index].rotate}deg`,
+            } as CSSProperties
+          }
+        >
+          {letter === " " ? "\u00A0" : letter === "-" ? "-" : letter}
+        </span>
+      ))}
     </span>
   );
 }
