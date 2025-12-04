@@ -348,6 +348,8 @@ import * as name from
             <ProjectCard
               title="SSCS Sales Data Automation"
               description="Automated SSCS portal logins and report downloads with Selenium. Processed 25-30 Excel files weekly, transformed data with pandas to match internal sheets with 100% accuracy."
+              image="/sscs.png"
+              link="https://github.com/rajveerkhosa/sscs"
               techStack={["Python", "Selenium", "Pandas"]}
             />
           </div>
