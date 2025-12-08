@@ -16,6 +16,18 @@ export default function Home() {
     <div className="min-h-screen bg-[#0a0a0a] text-[#ededed]">
       <Header />
 
+      {/* Temporary Presentation Link Banner */}
+      <div className="bg-[#00ff9f] text-black py-4 px-8 text-center">
+        <a
+          href="https://docs.google.com/presentation/d/1Uza2SC-ZCjmAEPGoFHSsgM6XUTxRLS3ZWx2cJkzS1E4/edit?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-lg font-semibold hover:underline"
+        >
+          View My Presentation →
+        </a>
+      </div>
+
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-8 py-16">
         <div className="grid md:grid-cols-2 gap-16 items-center">
